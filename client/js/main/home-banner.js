@@ -1,13 +1,13 @@
 import { getJsonData } from "../util.js";
 
-export const HomeBaner = function () {};
+export const HomeBanner = function () {};
 
-HomeBaner.prototype = {
-  constructor: HomeBaner,
-  createBanerImg: function (data) {
+HomeBanner.prototype = {
+  constructor: HomeBanner,
+  createBannerImg: function (data) {
     return `
       <img
-        class="home-baner__img"
+        class="home-Banner__img"
         src="${data.src}"
         alt="${data.img}"
       />
@@ -24,23 +24,22 @@ HomeBaner.prototype = {
     </li>
     `;
   },
-  createTemplate: function (banerImg, todayShortcut) {
-    console.log(banerImg);
+  createTemplate: function (BannerImg, todayShortcut) {
     return `
-    <div class="home-baner">
-        <div class="home-baner__wrapper">
-          ${this.createBanerImg(banerImg[0])}
-          <ul class="home-baner__today-img-container flex-column">
-            ${todayShortcut.map((todayBanerList) => this.createTodayImg(todayBanerList)).join("")}
+    <div class="home-banner">
+        <div class="home-banner__wrapper">
+          ${this.createBannerImg(BannerImg[0])}
+          <ul class="home-banner__today-img-container flex-column">
+            ${todayShortcut.map((todayBannerList) => this.createTodayImg(todayBannerList)).join("")}
           </ul>
         </div>
       </div>
     `;
   },
   render: function () {
-    const homeBaner = document.querySelector(".main-home");
-    getJsonData("/main/homeBaner").then((data) =>
-      homeBaner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]))
+    const homebanner = document.querySelector(".main-home");
+    getJsonData("/main/HomeBanner").then((data) =>
+      homebanner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]))
     );
   },
 };
