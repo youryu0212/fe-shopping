@@ -77,13 +77,20 @@
   height: 30px;
 }
 
-.top-bar__content {
+.top-bar__content-wrapper {
   padding: 10px 0;
+  cursor: pointer;
 }
 
 .top-bar__text {
   font-size: 12px;
   padding: 0 10px 0 0;
+}
+
+.top-bar__button {
+  background: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png") no-repeat -152px -35px;
+  width: 8px;
+  height: 4px;
 }
 
 .homepage-logo {
@@ -150,6 +157,14 @@
 
 .search-bar-icon-card {
   margin-right: 10px;
+}
+
+.search-bar__search-button {
+  background: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png") no-repeat -127px -80px;
+  padding: 0 10px;
+  margin-left: 10px;
+  width: 18px;
+  height: 18px;
 }
 
 .search-bar__menu {

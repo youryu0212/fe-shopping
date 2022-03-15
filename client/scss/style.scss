@@ -29,12 +29,20 @@
 .top-bar {
   height: 30px;
 
-  &__content {
+  &__content-wrapper {
     padding: 10px 0;
+    cursor: pointer;
   }
   &__text {
     font-size: 12px;
     padding: 0 10px 0 0;
+  }
+
+  &__button {
+    background: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png")
+      no-repeat -152px -35px;
+    width: 8px;
+    height: 4px;
   }
 }
 
@@ -83,6 +91,14 @@
   }
   &-icon-card {
     margin-right: 10px;
+  }
+  &__search-button {
+    background: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png")
+      no-repeat -127px -80px;
+    padding: 0 10px;
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
   }
 }
 .search-bar__menu {
