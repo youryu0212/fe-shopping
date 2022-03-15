@@ -9,7 +9,7 @@ HomeBanner.prototype = {
       <img
         class="home-Banner__img"
         src="${data.src}"
-        alt="${data.img}"
+        alt="${data.alt}"
       />
     `;
   },
