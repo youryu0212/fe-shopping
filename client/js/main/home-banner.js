@@ -37,10 +37,26 @@ HomeBanner.prototype = {
       </div>
     `;
   },
+  changeBannerImg: function (bannerContainer, evt, data) {
+    const bannerImg = document.querySelector(".home-Banner__img");
+    const curSelected = bannerContainer.querySelector(".selected");
+    const idx = evt.target.dataset.idx;
+    const afterSelected = bannerContainer.children[idx].querySelector("div");
+
+    bannerImg.src = data[idx]["src"];
+    bannerImg.alt = data[idx]["alt"];
+    curSelected.classList.remove("selected");
+    afterSelected.classList.add("selected");
+  },
+  onClickEvents: function (data) {
+    const bannerContainer = document.querySelector(".home-banner__today-img-container");
+    bannerContainer.addEventListener("mouseover", (evt) => this.changeBannerImg(bannerContainer, evt, data));
+  },
   render: function () {
     const homebanner = document.querySelector(".main-home");
-    getJsonData("/main/HomeBanner").then((data) =>
-      homebanner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]))
-    );
+    getJsonData("/main/HomeBanner").then((data) => {
+      homebanner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]));
+      this.onClickEvents(data["img"]);
+    });
   },
 };
