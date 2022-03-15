@@ -13,12 +13,14 @@ HomeBaner.prototype = {
           />
           <ul class="home-baner__today-img-container flex-column">
             <li>
+            <div></div>
               <img
                 src="https://static.coupangcdn.com/ca/cmg_paperboy/image/1647244674896/220315_C1_%EC%A3%BC%EB%B0%A9%EC%9A%A9%ED%92%88_SMD-16081_Item.jpg"
                 alt="주방 용품"
               />
             </li>
             <li>
+              <div class="selected"></div>
               <img
                 src="https://static.coupangcdn.com/ya/cmg_paperboy/image/1647244595644/220210_%EC%BF%A0%ED%8C%A1%EB%B9%84%EC%A6%88_SMD-15590_ITEM%284%29.jpg"
                 alt="쿠팡 비즈"

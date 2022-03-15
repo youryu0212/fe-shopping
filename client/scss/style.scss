@@ -158,12 +158,19 @@
   top: 45px;
   height: 360px;
   li {
+    position: relative;
     height: 60px;
     border: 2px none;
   }
-  li:hover {
-    border: 2px solid #4284f3;
-  }
+}
+.selected {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 180px;
+  height: 60px;
+  border: 2px solid #4284f3;
 }
 
 .icon-card {
