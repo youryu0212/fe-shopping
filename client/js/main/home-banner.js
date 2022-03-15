@@ -37,26 +37,45 @@ HomeBanner.prototype = {
       </div>
     `;
   },
-  changeBannerImg: function (bannerContainer, evt, data) {
+  changeBannerImg: function (bannerContainer, idx, data) {
     const bannerImg = document.querySelector(".home-Banner__img");
     const curSelected = bannerContainer.querySelector(".selected");
-    const idx = evt.target.dataset.idx;
     const afterSelected = bannerContainer.children[idx].querySelector("div");
-
+    if (curSelected === afterSelected) {
+      return;
+    }
     bannerImg.src = data[idx]["src"];
     bannerImg.alt = data[idx]["alt"];
     curSelected.classList.remove("selected");
     afterSelected.classList.add("selected");
   },
+  carouselHandler: function (data) {
+    const bannerList = document.querySelector(".home-banner__today-img-container");
+    const carouseLength = bannerList.children.length;
+    const curIdx = Number(document.querySelector(".selected").dataset.idx);
+    const nextIdx = curIdx < carouseLength - 1 ? curIdx + 1 : 0;
+    this.changeBannerImg(bannerList, nextIdx, data);
+  },
+  startCarousel: function (data) {
+    this.timer = setInterval(() => this.carouselHandler(data), 2000);
+  },
+  stopCarousel: function () {
+    clearInterval(this.timer);
+  },
   onClickEvents: function (data) {
     const bannerContainer = document.querySelector(".home-banner__today-img-container");
-    bannerContainer.addEventListener("mouseover", (evt) => this.changeBannerImg(bannerContainer, evt, data));
+    bannerContainer.addEventListener("mouseover", (evt) => {
+      this.changeBannerImg(bannerContainer, evt.target.dataset.idx, data);
+      this.stopCarousel();
+    });
+    bannerContainer.addEventListener("mouseout", () => this.startCarousel(data));
   },
   render: function () {
     const homebanner = document.querySelector(".main-home");
     getJsonData("/main/HomeBanner").then((data) => {
       homebanner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]));
       this.onClickEvents(data["img"]);
+      this.startCarousel(data["img"]);
     });
   },
 };
