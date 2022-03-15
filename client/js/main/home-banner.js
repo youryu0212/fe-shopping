@@ -16,10 +16,11 @@ HomeBanner.prototype = {
   createTodayImg: function (data) {
     return `
     <li>
-    <div${data.selected ? ' class="selected"' : ""}></div>
+    <div data-idx=${data.idx} ${data.selected ? ' class="selected"' : ""}></div>
     <img
       src="${data.src}"
       alt="${data.alt}"
+      data-idx="${data.idx}"
     />
     </li>
     `;
