@@ -212,6 +212,14 @@
 .home-baner {
   position: relative;
   cursor: pointer;
+  margin: 0 auto;
+}
+
+.home-baner__wrapper {
+  position: absolute;
+  margin-left: -960px;
+  top: 0;
+  left: 50%;
 }
 
 .home-baner__today-img-container {
@@ -223,6 +231,7 @@
 
 .home-baner__today-img-container li {
   height: 60px;
+  border: 2px none;
 }
 
 .home-baner__today-img-container li:hover {

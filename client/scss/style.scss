@@ -144,6 +144,13 @@
 .home-baner {
   position: relative;
   cursor: pointer;
+  margin: 0 auto;
+  &__wrapper {
+    position: absolute;
+    margin-left: -960px;
+    top: 0;
+    left: 50%;
+  }
 }
 .home-baner__today-img-container {
   position: absolute;
@@ -152,6 +159,7 @@
   height: 360px;
   li {
     height: 60px;
+    border: 2px none;
   }
   li:hover {
     border: 2px solid #4284f3;
