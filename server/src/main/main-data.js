@@ -1,8 +1,8 @@
 const express = require("express");
-const homeBanerData = require("./home-baner");
+const homeBanerData = require("./home-banner");
 const router = express.Router();
 
-router.get("/homeBaner", (req, res) => {
+router.get("/homeBanner", (req, res) => {
   res.json(JSON.stringify(homeBanerData));
 });
 

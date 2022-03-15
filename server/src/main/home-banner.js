@@ -1,7 +1,7 @@
 // img{src:주소, alt:설명}
 // todayShortcut {src:주소, alt:설명}
 
-const homeBanerData = {
+const homeBannerData = {
   img: [
     {
       src: "https://static.coupangcdn.com/ia/cmg_paperboy/image/1647244671106/220315_C1_%EC%A3%BC%EB%B0%A9%EC%9A%A9%ED%92%88_SMD-16081_PC.jpg",
@@ -62,4 +62,4 @@ const homeBanerData = {
   ],
 };
 
-module.exports = homeBanerData;
+module.exports = homeBannerData;

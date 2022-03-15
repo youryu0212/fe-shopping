@@ -1,8 +1,8 @@
-import { HomeBaner } from "./home-baner.js";
+import { HomeBanner } from "./home-banner.js";
 
 const mainHome = () => {
-  const homeBaner = new HomeBaner();
-  homeBaner.render();
+  const homeBanner = new HomeBanner();
+  homeBanner.render();
 };
 
 export { mainHome };
