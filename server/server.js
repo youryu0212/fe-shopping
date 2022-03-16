@@ -11,4 +11,4 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/../client/index.html");
 });
 
-app.listen(port);
+app.listen(process.env.PORT || port);
