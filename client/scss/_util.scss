@@ -1,0 +1,20 @@
+.flex {
+  display: flex;
+}
+.flex-row-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.thousand-width-center {
+  width: 1000px;
+  margin: 0 auto;
+}
