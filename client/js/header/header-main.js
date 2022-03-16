@@ -1,8 +1,27 @@
+import { getJsonData } from "../util.js";
+
 export const HeaderMain = function () {};
 
 HeaderMain.prototype = {
   constructor: HeaderMain,
-  createTemplate: function () {
+  createEventsCategory: function (data) {
+    return `
+      <div class="search-section__events-category flex-row-between">
+        <img
+          class="events-category__logo-img"
+          src="${data.img.src}"
+          alt="${data.img.alt}"
+        />
+        <div class="events-category__text small-text">${data.content}</div>
+        <img
+          class="new-icon${data.img.new ? "" : " display-none"}"
+          src="https://static.coupangcdn.com/image/coupang/common/ico_new.png"
+          alt="신규아이콘"
+        />
+      </div>
+    `;
+  },
+  createTemplate: function (data) {
     return `
     <div class="header-main thousand-width-center">
     <div class="category">
@@ -39,51 +58,17 @@ HeaderMain.prototype = {
         </div>
       </div>
       <div class="search-section__events flex">
-        <div class="search-section__events-category flex-row-between">
-          <img
-            class="events-category__logo-img"
-            src="https://static.coupangcdn.com/image/coupang/common/pc_header_rocket_fresh_1x.png"
-            alt=""
-          />
-          <div class="events-category__text small-text">로켓배송</div>
-          <img
-            class="new-icon display-none"
-            src="https://static.coupangcdn.com/image/coupang/common/ico_new.png"
-            alt="신규아이콘"
-          />
-        </div>
-        <div class="search-section__events-category flex-row-between">
-          <img
-            class="events-category__logo-img"
-            src="https://static.coupangcdn.com/image/coupang/common/pc_header_rocket_fresh_1x.png"
-            alt=""
-          />
-          <div class="events-category__text small-text">로켓프레시</div>
-          <img
-            class="new-icon display-none"
-            src="https://static.coupangcdn.com/image/coupang/common/ico_new.png"
-            alt="신규아이콘"
-          />
-        </div>
-        <div class="search-section__events-category flex-row-between">
-          <img
-            class="events-category__logo-img"
-            src="https://static.coupangcdn.com/image/coupang/common/logoBizonlyBrown.png"
-            alt="쿠팡비즈이미지"
-          />
-          <div class="events-category__text small-text">쿠팡비즈</div>
-          <img
-            class="new-icon"
-            src="https://static.coupangcdn.com/image/coupang/common/ico_new.png"
-            alt="신규아이콘"
-          />
-          </div>
-        </div>
-      </section>
+        ${data.headerEventCategoryData
+          .map((todayEventList) => this.createEventsCategory(todayEventList))
+          .join("")}
+      </div>
+    </section>
     </div>`;
   },
   render: function () {
     const headerMain = document.querySelector(".header");
-    headerMain.insertAdjacentHTML("beforeend", this.createTemplate());
+    getJsonData("/header/eventCategory").then((data) => {
+      headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
+    });
   },
 };
