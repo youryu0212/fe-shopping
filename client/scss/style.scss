@@ -10,14 +10,19 @@
 }
 
 .category {
-  background-color: #4284f3;
-  width: 110px;
+  background: url("https://static.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png")
+    no-repeat 0 0;
+  width: 130px;
   height: 115px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  &__img {
-    color: #ffffff;
-  }
+
   &__text {
+    position: absolute;
+    left: 30px;
+    top: 70px;
     color: #ffffff;
   }
 }

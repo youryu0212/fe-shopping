@@ -5,8 +5,7 @@ HeaderMain.prototype = {
   createTemplate: function () {
     return `
     <div class="header-main thousand-width-center">
-    <div class="category icon-card flex-column">
-      <i class="category__img icon-card__img fas fa-bars fa-2x"></i>
+    <div class="category">
       <span class="category__text icon-card__text">카테고리</span>
     </div>
     <section class="search-section flex-column">
