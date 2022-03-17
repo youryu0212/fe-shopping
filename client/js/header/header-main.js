@@ -45,6 +45,8 @@ HeaderMain.prototype = {
             placeholder="찾고 싶은 상품을 검색해 보세요!"
           />
           <div class="search-bar__search-button"></div>
+          <div class="search-bar__view-menu"></div>
+          <div class="search-bar__view-content"></div>
         </div>
         <div class="search-bar-icons">
           <div class="search-bar-icon-card icon-card">

@@ -18,3 +18,15 @@
   width: 1000px;
   margin: 0 auto;
 }
+
+@mixin absolute-one-zindex($color) {
+  position: absolute;
+  background-color: $color;
+  z-index: 1;
+}
+@mixin top-left-width-height($top, $left, $width, $height) {
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+}

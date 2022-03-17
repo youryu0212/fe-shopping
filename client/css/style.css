@@ -132,6 +132,8 @@
 }
 
 .search-bar {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -284,5 +286,31 @@
   background: url("https://img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png") no-repeat -112px 0;
   width: 37px;
   height: 36px;
+}
+
+.search-bar__view-menu {
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 1;
+  top: 43px;
+  left: -1px;
+  width: 90px;
+  height: 800px;
+  border: 1px solid #e7e7e7;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.search-bar__view-content {
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 1;
+  top: 43px;
+  left: 89px;
+  width: 415px;
+  height: 330px;
+  border: 1px solid #e7e7e7;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 /*# sourceMappingURL=style.css.map */
