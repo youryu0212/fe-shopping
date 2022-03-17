@@ -47,12 +47,14 @@ const headerMainMethod = {
               <div class="small-text">전체</div>
               <div class="search-bar__menu__button"></div>
           </div>
-          <input
-            class="search-bar__search-area"
-            type="text"
-            placeholder="찾고 싶은 상품을 검색해 보세요!"
-          />
-          <div class="search-bar__search-button"></div>
+          <form class="search-bar__form">
+            <input
+              class="search-bar__search-area"
+              type="text"
+              placeholder="찾고 싶은 상품을 검색해 보세요!"
+            />
+            <div class="search-bar__search-button"></div>
+          </form>
         </div>
         <div class="search-bar-icons">
           <div class="search-bar-icon-card icon-card">

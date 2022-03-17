@@ -37,3 +37,8 @@
   justify-content: space-around;
   align-items: center;
 }
+
+@mixin flex-alignCenter {
+  display: flex;
+  align-items: center;
+}
