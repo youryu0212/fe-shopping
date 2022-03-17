@@ -74,23 +74,26 @@ const headerMainMethod = {
     </div>`;
   },
 
-  render: function () {
+  renderHeaderEventCategory() {
     const headerMain = document.querySelector(".header");
-    getJsonData("/header/eventCategory")
-      .then((data) => {
-        headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
+    return getJsonData("/header/eventCategory").then((data) => {
+      headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
+    });
+  },
+  renderDropBox() {
+    return getJsonData("/header/searchBarMenu").then((data) => {
+      this.searchViewMenuDropBox.dropBox = this.createDropBox(data, "search-bar__view-menu");
+    });
+  },
+  render: function () {
+    this.renderHeaderEventCategory()
+      .then(() => {
+        return this.renderDropBox();
       })
       .then(() => {
-        return getJsonData("/header/searchBarMenu");
-      })
-      .then((data) => {
-        this.searchViewMenuDropBox.dropBox = this.createDropBox(data, "search-bar__view-menu");
-        this.onEventRegisterSearchBar(this.searchViewMenuDropBox);
-        this.onEventRegisterSearchBar(this.searchViewContentDropBox);
+        this.onDropBoxEvent(this.searchViewMenuDropBox);
+        this.onDropBoxEvent(this.searchViewContentDropBox);
       });
-  },
-  runTransitionAnimation(element) {
-    setTimeout(() => element.classList.add("animation-fade"), 30);
   },
 };
 HeaderMain.prototype = Object.assign(Object.create(DropBox.prototype), headerMainMethod);

@@ -1,3 +1,5 @@
+import { runTransitionAnimation } from "../util.js";
+
 export const DropBox = function () {};
 DropBox.prototype = {
   constructor: DropBox,
@@ -15,15 +17,12 @@ DropBox.prototype = {
   ) {
     return { eventListenerClassName, dropBoxClassName, parentNodeClassName, dropBoxCurrentState, dropBox };
   },
-  onEventRegisterSearchBar(currentDropBox) {
-    this.onDropBoxEvent(currentDropBox);
-  },
   addDropBox(dropBoxInfo) {
     const parentNode = document.querySelector(`.${dropBoxInfo.parentNodeClassName}`);
     if (this.removeDropBox(dropBoxInfo)) return;
     parentNode.insertAdjacentHTML("beforeend", dropBoxInfo.dropBox);
     dropBoxInfo.dropBoxCurrentState = document.querySelector(`.${dropBoxInfo.dropBoxClassName}`);
-    this.runTransitionAnimation(dropBoxInfo.dropBoxCurrentState);
+    runTransitionAnimation(dropBoxInfo.dropBoxCurrentState);
   },
   removeDropBox(dropBoxInfo) {
     if (dropBoxInfo.dropBoxCurrentState) {
