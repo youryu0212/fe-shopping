@@ -8,7 +8,7 @@ export const HeaderMain = function () {
   this.searchViewContent = searchView.createSearchView();
 };
 
-HeaderMain.prototype = {
+const headerMainMethod = {
   constructor: HeaderMain,
   createEventsCategory: function (data) {
     return `
@@ -130,3 +130,4 @@ HeaderMain.prototype = {
     setTimeout(() => element.classList.add("animation-fade"), 30);
   },
 };
+HeaderMain.prototype = Object.assign(Object.create(SearchView.prototype), headerMainMethod);
