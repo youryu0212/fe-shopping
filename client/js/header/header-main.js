@@ -1,13 +1,13 @@
 import { getJsonData } from "../util.js";
-import { SearchView } from "./search-view.js";
+import { DropBox } from "../component/dropbox.js";
 export const HeaderMain = function () {
-  // this.searchView = new SearchView();
-  // this.searchViewMenuElement = null;
-  // this.searchViewContentElement = null;
-  const searchView = new SearchView();
-  this.searchViewMenuElement = null;
-  this.searchViewContentElement = null;
-  this.searchViewContent = searchView.createSearchView();
+  this.searchViewMenuDropBox = this.setDropBoxInfo("search-bar__menu", "search-bar__view-menu", "search-bar");
+  this.searchViewContentDropBox = this.setDropBoxInfo(
+    "search-bar__search-area",
+    "search-bar__view-content",
+    "search-bar"
+  );
+  this.searchViewContentDropBox.dropBox = this.createDropBox(false, "search-bar__view-content");
 };
 
 const headerMainMethod = {
@@ -73,6 +73,7 @@ const headerMainMethod = {
     </section>
     </div>`;
   },
+
   render: function () {
     const headerMain = document.querySelector(".header");
     getJsonData("/header/eventCategory")
@@ -83,61 +84,13 @@ const headerMainMethod = {
         return getJsonData("/header/searchBarMenu");
       })
       .then((data) => {
-        console.log(data);
-        this.searchViewMenu = this.createMenuView(data);
-        this.onEventRegisterSearchBar();
+        this.searchViewMenuDropBox.dropBox = this.createDropBox(data, "search-bar__view-menu");
+        this.onEventRegisterSearchBar(this.searchViewMenuDropBox);
+        this.onEventRegisterSearchBar(this.searchViewContentDropBox);
       });
-  },
-  onEventRegisterSearchBar() {
-    this.onSearchMenuEvent();
-    this.onSearchViewEvent();
-  },
-  onSearchMenuEvent() {
-    const menu = document.querySelector(".search-bar__menu");
-    menu.addEventListener("click", () => this.addSearchMenu());
-    menu.addEventListener("focusout", () => this.removeSearchMenu());
-    // 에로우 펑션 아닐때는 this 바인딩이 다르게 동작. 함수가 실행할때 this가 바인딩되서, menu로 바인딩 되는데, 에로우 펑션의 경우 선언된 환경 (클래스 자체)를 가리키기 때문
-  },
-  addSearchMenu() {
-    const searchBar = document.querySelector(".search-bar");
-    if (this.removeSearchMenu()) return;
-    searchBar.insertAdjacentHTML("beforeend", this.searchViewMenu);
-    this.searchViewMenuElement = document.querySelector(".search-bar__view-menu");
-    this.runTransitionAnimation(this.searchViewMenuElement);
-  },
-  removeSearchMenu() {
-    if (this.searchViewMenuElement) {
-      this.searchViewMenuElement.remove();
-      this.searchViewMenuElement = false;
-      return true;
-    }
-    return false;
-  },
-  onSearchViewEvent() {
-    const searchArea = document.querySelector(".search-bar__search-area");
-    searchArea.addEventListener("click", () => this.addSearchView());
-    searchArea.addEventListener("focusout", () => {
-      console.log(document.activeElement);
-      this.removeSearchView();
-    });
-  },
-  addSearchView() {
-    const searchBar = document.querySelector(".search-bar");
-    if (this.removeSearchView()) return;
-    searchBar.insertAdjacentHTML("beforeend", this.searchViewContent);
-    this.searchViewContentElement = document.querySelector(".search-bar__view-content");
-    this.runTransitionAnimation(this.searchViewContentElement);
-  },
-  removeSearchView() {
-    if (this.searchViewContentElement) {
-      this.searchViewContentElement.remove();
-      this.searchViewContentElement = false;
-      return true;
-    }
-    return false;
   },
   runTransitionAnimation(element) {
     setTimeout(() => element.classList.add("animation-fade"), 30);
   },
 };
-HeaderMain.prototype = Object.assign(Object.create(SearchView.prototype), headerMainMethod);
+HeaderMain.prototype = Object.assign(Object.create(DropBox.prototype), headerMainMethod);
