@@ -114,6 +114,7 @@
   border-style: solid;
   padding-left: 10px;
   padding-right: 10px;
+  height: 100%;
   cursor: pointer;
   .small-text {
     margin-right: 50px;
@@ -121,7 +122,7 @@
   &__button {
     position: absolute;
     left: 70px;
-    bottom: 4px;
+    bottom: 20px;
     // 버튼 열리면 bottom 지우고 top으로 변경
     background: url("https://img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png")
       no-repeat -2px -155px;
@@ -216,4 +217,15 @@
     border: 1px solid #e7e7e7;
     box-sizing: border-box;
   }
+}
+
+.animation-init {
+  opacity: 0;
+  padding-bottom: 1em;
+}
+
+.animation-fade {
+  opacity: 1;
+  padding-bottom: 0;
+  transition: all 0.3s;
 }

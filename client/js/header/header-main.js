@@ -1,6 +1,12 @@
 import { getJsonData } from "../util.js";
-
-export const HeaderMain = function () {};
+import { SearchView } from "./search-view.js";
+export const HeaderMain = function () {
+  const searchView = new SearchView();
+  this.searchViewMenuElement = null;
+  this.searchViewContentElement = null;
+  this.searchViewMenu = searchView.createMenuView();
+  this.searchViewContent = searchView.createSearchView();
+};
 
 HeaderMain.prototype = {
   constructor: HeaderMain,
