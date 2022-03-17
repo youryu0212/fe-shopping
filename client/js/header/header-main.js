@@ -1,10 +1,12 @@
 import { getJsonData } from "../util.js";
 import { SearchView } from "./search-view.js";
 export const HeaderMain = function () {
+  // this.searchView = new SearchView();
+  // this.searchViewMenuElement = null;
+  // this.searchViewContentElement = null;
   const searchView = new SearchView();
   this.searchViewMenuElement = null;
   this.searchViewContentElement = null;
-  this.searchViewMenu = searchView.createMenuView();
   this.searchViewContent = searchView.createSearchView();
 };
 
@@ -73,10 +75,18 @@ const headerMainMethod = {
   },
   render: function () {
     const headerMain = document.querySelector(".header");
-    getJsonData("/header/eventCategory").then((data) => {
-      headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
-      this.onEventRegisterSearchMenu();
-    });
+    getJsonData("/header/eventCategory")
+      .then((data) => {
+        headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
+      })
+      .then(() => {
+        return getJsonData("/header/searchBarMenu");
+      })
+      .then((data) => {
+        console.log(data);
+        this.searchViewMenu = this.createMenuView(data);
+        this.onEventRegisterSearchBar();
+      });
   },
   onEventRegisterSearchBar() {
     this.onSearchMenuEvent();
