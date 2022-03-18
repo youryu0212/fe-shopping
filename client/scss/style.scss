@@ -149,12 +149,21 @@
     border: 1px solid #e7e7e7;
     box-sizing: border-box;
     font-size: 12px;
+    div {
+      cursor: pointer;
+    }
   }
   &-content {
     @include absolute-one-zindex(#ffffff);
     @include top-left-width-height(43px, 89px, 415px, 330px);
+    @include flex-column;
+    justify-content: flex-start;
+    padding: 20px;
     border: 1px solid #e7e7e7;
     box-sizing: border-box;
+    div {
+      margin-bottom: 10px;
+    }
   }
 }
 

@@ -30,6 +30,10 @@
   width: $width;
   height: $height;
 }
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
 
 @mixin flex-column-space-around-center {
   display: flex;
