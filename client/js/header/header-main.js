@@ -141,6 +141,7 @@ const headerMainMethod = {
         this.onDropBoxRenderEvent(this.searchViewContentDropBox);
         this.onSearchBarInputEvent();
         this.onSubmitSearchBar();
+        this.onSubmitSearchBarByButtonClick();
       });
   },
   createSearchBarAutoComplete(keyWord) {
@@ -153,6 +154,12 @@ const headerMainMethod = {
       .then(() => {
         this.reRenderDropBox(this.searchViewContentDropBox);
       });
+  },
+  onSubmitSearchBarByButtonClick() {
+    const searchButton = document.querySelector(".search-bar__search-button");
+    searchButton.addEventListener("click", (evt) => {
+      setLocalStorageForArray(this.recentSearchKeyWord, this.searchArea.value);
+    });
   },
   onSearchBarInputEvent() {
     this.searchArea = document.querySelector(".search-bar__search-area");
