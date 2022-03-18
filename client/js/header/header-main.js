@@ -82,20 +82,45 @@ const headerMainMethod = {
       headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
     });
   },
-  renderDropBox() {
+  renderSearchMenuDropBox() {
     return getJsonData("/header/searchBarMenu").then((data) => {
-      this.searchViewMenuDropBox.dropBox = this.createDropBox(data, "search-bar__view-menu");
+      this.searchViewMenuDropBox.dropBox = this.createDropBoxTemplate(data, "search-bar__view-menu");
     });
+  },
+  renderSearchAreaDropBox(data) {
+    return (this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
+      data,
+      "search-bar__view-content"
+    ));
   },
   render: function () {
     this.renderHeaderEventCategory()
       .then(() => {
-        return this.renderDropBox();
+        return this.renderSearchMenuDropBox();
       })
       .then(() => {
-        this.onDropBoxEvent(this.searchViewMenuDropBox);
-        this.onDropBoxEvent(this.searchViewContentDropBox);
+        this.onDropBoxRenderEvent(this.searchViewMenuDropBox);
+        this.onDropBoxRenderEvent(this.searchViewContentDropBox);
+        this.onSearchBarInputEvent();
       });
+  },
+  createSearchBarAutoComplete(keyWord) {
+    fetch(`https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${keyWord}`)
+      .then((res) => res.json())
+      .then((data) => data.suggestions.map((v) => v.value))
+      .then((data) => {
+        return this.renderSearchAreaDropBox(data);
+      })
+      .then(() => {
+        this.reRenderDropBox(this.searchViewContentDropBox);
+      });
+  },
+  onSearchBarInputEvent() {
+    const searchArea = document.querySelector(".search-bar__search-area");
+    searchArea.addEventListener("input", (e) => {
+      this.createSearchBarAutoComplete(searchArea.value);
+    });
   },
 };
 HeaderMain.prototype = Object.assign(Object.create(DropBox.prototype), headerMainMethod);
+console.log(HeaderMain.prototype);
