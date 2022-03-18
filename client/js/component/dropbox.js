@@ -66,6 +66,6 @@ DropBox.prototype = {
   onDropBoxRenderEvent(dropBoxInfo) {
     const eventListenerNode = document.querySelector(`.${dropBoxInfo.eventListenerClassName}`);
     eventListenerNode.addEventListener("click", () => this.addDropBox(dropBoxInfo));
-    eventListenerNode.addEventListener("focusout", (e) => console.log(dropBoxInfo));
+    eventListenerNode.addEventListener("focusout", (e) => this.removeDropBox(dropBoxInfo));
   },
 };
