@@ -1,5 +1,6 @@
 import { getJsonData } from "../util.js";
 import { DropBox } from "../component/dropbox.js";
+import { getLocalStorageForArray, setLocalStorageForArray } from "../component/local-storage.js";
 export const HeaderMain = function () {
   this.searchViewMenuDropBox = this.setDropBoxInfo("search-bar__menu", "search-bar__view-menu", "search-bar");
   this.searchViewContentDropBox = this.setDropBoxInfo(
@@ -13,6 +14,7 @@ export const HeaderMain = function () {
     null,
     this.recentSearchArea()
   );
+  this.recentSearchKeyWord = "recentSearchKeyWord";
 };
 
 const headerMainMethod = {
@@ -53,7 +55,9 @@ const headerMainMethod = {
               <div class="search-bar__menu__button"></div>
           </div>
           <form class="search-bar__form">
+            <label for="main-search-bar"></label>
             <input
+              id="main-search-bar"
               class="search-bar__search-area"
               type="text"
               placeholder="찾고 싶은 상품을 검색해 보세요!"
@@ -80,15 +84,23 @@ const headerMainMethod = {
     </section>
     </div>`;
   },
+  createRecentSearchByLocalStorage(curLocalStorage) {
+    return curLocalStorage
+      .reverse()
+      .reduce(
+        (divElement, content) => divElement + `<div class="recentSearch-area__text">${content}</div>`,
+        ""
+      );
+  },
   recentSearchArea() {
+    const curLocalStorage = getLocalStorageForArray(this.recentSearchKeyWord);
     return `
     <div class="recentSearch-area">
       <div class="recentSearch-area__header">
       <div class="recentSearch-area__text">최근 검색어</div>
       </div>
       <div class="recentSearch-area__main">
-        <div class="recentSearch-area__text">아이폰</div>
-        <div class="recentSearch-area__text">아이폰 프로</div>
+        ${curLocalStorage.length > 0 ? this.createRecentSearchByLocalStorage(curLocalStorage) : ""}
       </div>
       <div class="recentSearch-area__footer">
         <div class="recentSearch-area__text">전체삭제</div>
@@ -143,16 +155,16 @@ const headerMainMethod = {
       });
   },
   onSearchBarInputEvent() {
-    const searchArea = document.querySelector(".search-bar__search-area");
-    searchArea.addEventListener("input", (e) => {
-      this.createSearchBarAutoComplete(searchArea.value);
+    this.searchArea = document.querySelector(".search-bar__search-area");
+    this.searchArea.addEventListener("input", (e) => {
+      this.createSearchBarAutoComplete(this.searchArea.value);
     });
   },
   onSubmitSearchBar() {
     const searchForm = document.querySelector(".search-bar__form");
     searchForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log("digh");
+      setLocalStorageForArray(this.recentSearchKeyWord, this.searchArea.value);
     });
   },
 };
