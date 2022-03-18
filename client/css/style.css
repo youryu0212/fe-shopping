@@ -38,6 +38,10 @@
   margin: 0 auto;
 }
 
+.text-highlight {
+  color: #0c43b7;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;

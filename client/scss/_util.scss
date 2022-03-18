@@ -18,6 +18,9 @@
   width: 1000px;
   margin: 0 auto;
 }
+.text-highlight {
+  color: #0c43b7;
+}
 
 @mixin absolute-one-zindex($color) {
   position: absolute;
