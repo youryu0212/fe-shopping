@@ -28,6 +28,13 @@ DropBox.prototype = {
     dropBoxInfo.dropBoxCurrentState = document.querySelector(`.${dropBoxInfo.dropBoxClassName}`);
     runTransitionAnimation(dropBoxInfo.dropBoxCurrentState);
   },
+  reRenderDropBox(dropBoxInfo) {
+    const parentNode = document.querySelector(`.${dropBoxInfo.parentNodeClassName}`);
+    this.removeDropBox(dropBoxInfo);
+    parentNode.insertAdjacentHTML("beforeend", dropBoxInfo.dropBox);
+    dropBoxInfo.dropBoxCurrentState = document.querySelector(`.${dropBoxInfo.dropBoxClassName}`);
+    dropBoxInfo.dropBoxCurrentState.style.opacity = 1;
+  },
   removeDropBox(dropBoxInfo) {
     if (dropBoxInfo.dropBoxCurrentState) {
       dropBoxInfo.dropBoxCurrentState.remove();
