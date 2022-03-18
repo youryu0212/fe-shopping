@@ -139,10 +139,13 @@ const headerMainMethod = {
       .then(() => {
         this.onDropBoxRenderEvent(this.searchViewMenuDropBox);
         this.onDropBoxRenderEvent(this.searchViewContentDropBox);
-        this.onSearchBarInputEvent();
-        this.onSubmitSearchBar();
-        this.onSubmitSearchBarByButtonClick();
+        this.searchBarEventRegister();
       });
+  },
+  searchBarEventRegister() {
+    this.onSearchBarInputEvent();
+    this.onSubmitSearchBar();
+    this.onSubmitSearchBarByButtonClick();
   },
   createSearchBarAutoComplete(keyWord) {
     fetch(`https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${keyWord}`)
