@@ -74,7 +74,7 @@ HomeBanner.prototype = {
     const homebanner = document.querySelector(".main-home");
     getJsonData("/main/HomeBanner").then((data) => {
       homebanner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]));
-      this.onClickEvents(data["img"]);
+      this.onBanerChangeEvent(data["img"]);
       this.startCarousel(data["img"]);
     });
   },
