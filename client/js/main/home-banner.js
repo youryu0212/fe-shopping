@@ -62,7 +62,7 @@ HomeBanner.prototype = {
   stopCarousel() {
     clearInterval(this.timer);
   },
-  onClickEvents(data) {
+  onBanerChangeEvent(data) {
     const bannerContainer = document.querySelector(".home-banner__today-img-container");
     bannerContainer.addEventListener("mouseover", (evt) => {
       this.changeBannerImg(bannerContainer, evt.target.dataset.idx, data);
