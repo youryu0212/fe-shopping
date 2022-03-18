@@ -3,14 +3,14 @@ import { runTransitionAnimation } from "../util.js";
 export const DropBox = function () {};
 DropBox.prototype = {
   constructor: DropBox,
-  createDropBoxTemplate(data, className, keyWord) {
+  createDropBoxTemplate(data, className, keyWord, templateForEmptyData) {
     return `<div class="${className} animation-init" tabindex="0">
       ${
         data
           ? data.reduce((divElement, content) => {
               return divElement + this.createAutoCompleteTemplate(content, keyWord, className);
             }, "")
-          : ""
+          : templateForEmptyData
       }
     </div>`;
   },

@@ -7,7 +7,12 @@ export const HeaderMain = function () {
     "search-bar__view-content",
     "search-bar"
   );
-  this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(false, "search-bar__view-content");
+  this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
+    false,
+    "search-bar__view-content",
+    null,
+    ""
+  );
 };
 
 const headerMainMethod = {
@@ -91,7 +96,8 @@ const headerMainMethod = {
     return (this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
       data,
       "search-bar__view-content",
-      keyWord
+      keyWord,
+      ""
     ));
   },
   render: function () {
