@@ -87,10 +87,11 @@ const headerMainMethod = {
       this.searchViewMenuDropBox.dropBox = this.createDropBoxTemplate(data, "search-bar__view-menu");
     });
   },
-  renderSearchAreaDropBox(data) {
+  renderSearchAreaDropBox(data, keyWord) {
     return (this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
       data,
-      "search-bar__view-content"
+      "search-bar__view-content",
+      keyWord
     ));
   },
   render: function () {
@@ -109,7 +110,7 @@ const headerMainMethod = {
       .then((res) => res.json())
       .then((data) => data.suggestions.map((v) => v.value))
       .then((data) => {
-        return this.renderSearchAreaDropBox(data);
+        return this.renderSearchAreaDropBox(data, keyWord);
       })
       .then(() => {
         this.reRenderDropBox(this.searchViewContentDropBox);
@@ -123,4 +124,3 @@ const headerMainMethod = {
   },
 };
 HeaderMain.prototype = Object.assign(Object.create(DropBox.prototype), headerMainMethod);
-console.log(HeaderMain.prototype);

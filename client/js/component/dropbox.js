@@ -3,14 +3,34 @@ import { runTransitionAnimation } from "../util.js";
 export const DropBox = function () {};
 DropBox.prototype = {
   constructor: DropBox,
-  createDropBoxTemplate(data, className) {
+  createDropBoxTemplate(data, className, keyWord) {
     return `<div class="${className} animation-init" tabindex="0">
       ${
         data
-          ? data.reduce((divElement, content) => divElement + `<div ${className}-child>${content}</div>`, "")
+          ? data.reduce((divElement, content) => {
+              return divElement + this.createAutoCompleteTemplate(content, keyWord, className);
+            }, "")
           : ""
       }
     </div>`;
+  },
+  createAutoCompleteTemplate(content, keyWord, className) {
+    let hightlightLength = 0;
+    return `<div ${className}-child>${
+      keyWord
+        ? '<strong class="text-highlight">' +
+          [...keyWord]
+            .map((char, idx) => {
+              if (char !== " ") {
+                hightlightLength = idx + 1;
+              }
+              return char;
+            })
+            .join("") +
+          "</strong>" +
+          content.slice(hightlightLength)
+        : content
+    }</div>`;
   },
   setDropBoxInfo(
     eventListenerClassName,
@@ -46,6 +66,6 @@ DropBox.prototype = {
   onDropBoxRenderEvent(dropBoxInfo) {
     const eventListenerNode = document.querySelector(`.${dropBoxInfo.eventListenerClassName}`);
     eventListenerNode.addEventListener("click", () => this.addDropBox(dropBoxInfo));
-    eventListenerNode.addEventListener("focusout", (e) => this.removeDropBox(dropBoxInfo));
+    eventListenerNode.addEventListener("focusout", (e) => console.log(dropBoxInfo));
   },
 };
