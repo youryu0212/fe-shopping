@@ -370,8 +370,8 @@
 .animation-fade {
   opacity: 1;
   padding-bottom: 0;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  -webkit-transition: all 1s;
+  transition: all 1s;
 }
 
 .recentSearch-area {
