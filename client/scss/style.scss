@@ -79,6 +79,7 @@
   }
 }
 .search-bar {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -86,9 +87,14 @@
   margin: 0px 25px;
   border: 1px solid blue;
   height: 50%;
+  &__form {
+    @include flex-alignCenter();
+    flex-grow: 1;
+    height: 100%;
+  }
   &__search-area {
     margin-left: 10px;
-    flex-grow: 1;
+    width: 100%;
     border: none;
   }
   &-icons {
@@ -104,6 +110,7 @@
     margin-left: 10px;
     width: 18px;
     height: 18px;
+    cursor: pointer;
   }
 }
 .search-bar__menu {
@@ -113,6 +120,7 @@
   border-style: solid;
   padding-left: 10px;
   padding-right: 10px;
+  height: 100%;
   cursor: pointer;
   .small-text {
     margin-right: 50px;
@@ -120,7 +128,7 @@
   &__button {
     position: absolute;
     left: 70px;
-    bottom: 4px;
+    bottom: 20px;
     // 버튼 열리면 bottom 지우고 top으로 변경
     background: url("https://img1a.coupangcdn.com/image/coupang/common/pc_header_img_sprite_180104.png")
       no-repeat -2px -155px;
@@ -133,6 +141,33 @@
   left: 480px;
   cursor: pointer;
 }
+
+.search-bar__view {
+  &-menu {
+    @include absolute-one-zindex(#ffffff);
+    @include top-left-width-height(43px, -1px, 90px, 800px);
+    @include flex-column-space-around-center;
+    border: 1px solid #e7e7e7;
+    box-sizing: border-box;
+    font-size: 12px;
+    div {
+      cursor: pointer;
+    }
+  }
+  &-content {
+    @include absolute-one-zindex(#ffffff);
+    @include top-left-width-height(43px, 89px, 415px, 330px);
+    @include flex-column;
+    justify-content: flex-start;
+    padding: 20px;
+    border: 1px solid #e7e7e7;
+    box-sizing: border-box;
+    div {
+      margin-bottom: 10px;
+    }
+  }
+}
+
 .small-text {
   font-size: 0.725rem;
 }
@@ -199,5 +234,41 @@
       no-repeat -112px 0;
     width: 37px;
     height: 36px;
+  }
+}
+
+.animation-init {
+  opacity: 0;
+  padding-bottom: 1em;
+}
+
+.animation-fade {
+  opacity: 1;
+  padding-bottom: 0;
+  transition: all 1s;
+}
+
+.recentSearch-area {
+  @include flex-column;
+  &__header {
+    border-bottom: 1px solid rgba(#000000, 0.3);
+    height: 20px;
+    padding-bottom: 5px;
+  }
+  &__main {
+    padding: 5px 0;
+    height: 220px;
+    border-bottom: 1px solid rgba(#000000, 0.3);
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20px;
+    padding-top: 5px;
+    color: #8d8d8d;
+  }
+  &__text {
+    font-size: 12px;
   }
 }

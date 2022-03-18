@@ -18,3 +18,34 @@
   width: 1000px;
   margin: 0 auto;
 }
+.text-highlight {
+  color: #0c43b7;
+}
+
+@mixin absolute-one-zindex($color) {
+  position: absolute;
+  background-color: $color;
+  z-index: 1;
+}
+@mixin top-left-width-height($top, $left, $width, $height) {
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+}
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-column-space-around-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin flex-alignCenter {
+  display: flex;
+  align-items: center;
+}
