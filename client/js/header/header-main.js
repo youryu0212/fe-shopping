@@ -7,7 +7,7 @@ export const HeaderMain = function () {
     "search-bar__view-content",
     "search-bar"
   );
-  this.searchViewContentDropBox.dropBox = this.createDropBox(false, "search-bar__view-content");
+  this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(false, "search-bar__view-content");
 };
 
 const headerMainMethod = {
@@ -44,7 +44,7 @@ const headerMainMethod = {
         />
         <div class="search-bar">
           <div class="search-bar__menu flex-row-between flex-center" tabindex="0">
-              <div class="small-text">전체</div>
+              <div class="search-bar__menu__text small-text">전체</div>
               <div class="search-bar__menu__button"></div>
           </div>
           <form class="search-bar__form">

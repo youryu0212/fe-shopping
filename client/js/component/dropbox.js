@@ -3,9 +3,13 @@ import { runTransitionAnimation } from "../util.js";
 export const DropBox = function () {};
 DropBox.prototype = {
   constructor: DropBox,
-  createDropBox(data, className) {
+  createDropBoxTemplate(data, className) {
     return `<div class="${className} animation-init" tabindex="0">
-      ${data ? data.reduce((divElement, content) => divElement + `<div>${content}</div>`, "") : ""}
+      ${
+        data
+          ? data.reduce((divElement, content) => divElement + `<div ${className}-child>${content}</div>`, "")
+          : ""
+      }
     </div>`;
   },
   setDropBoxInfo(
@@ -32,9 +36,9 @@ DropBox.prototype = {
     }
     return false;
   },
-  onDropBoxEvent(dropBoxInfo) {
+  onDropBoxRenderEvent(dropBoxInfo) {
     const eventListenerNode = document.querySelector(`.${dropBoxInfo.eventListenerClassName}`);
     eventListenerNode.addEventListener("click", () => this.addDropBox(dropBoxInfo));
-    eventListenerNode.addEventListener("focusout", () => this.removeDropBox(dropBoxInfo));
+    eventListenerNode.addEventListener("focusout", (e) => this.removeDropBox(dropBoxInfo));
   },
 };
