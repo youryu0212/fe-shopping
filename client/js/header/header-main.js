@@ -11,7 +11,7 @@ export const HeaderMain = function () {
     false,
     "search-bar__view-content",
     null,
-    ""
+    this.recentSearchArea()
   );
 };
 
@@ -80,7 +80,23 @@ const headerMainMethod = {
     </section>
     </div>`;
   },
-
+  recentSearchArea() {
+    return `
+    <div class="recentSearch-area">
+      <div class="recentSearch-area__header">
+      <div class="recentSearch-area__text">최근 검색어</div>
+      </div>
+      <div class="recentSearch-area__main">
+        <div class="recentSearch-area__text">아이폰</div>
+        <div class="recentSearch-area__text">아이폰 프로</div>
+      </div>
+      <div class="recentSearch-area__footer">
+        <div class="recentSearch-area__text">전체삭제</div>
+        <div class="recentSearch-area__text">최근검색어끄기</div>
+      </div>
+    </div>
+    `;
+  },
   renderHeaderEventCategory() {
     const headerMain = document.querySelector(".header");
     return getJsonData("/header/eventCategory").then((data) => {
@@ -93,11 +109,14 @@ const headerMainMethod = {
     });
   },
   renderSearchAreaDropBox(data, keyWord) {
+    if (keyWord.length === 0) {
+      data = null;
+    }
     return (this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
       data,
       "search-bar__view-content",
       keyWord,
-      ""
+      this.recentSearchArea()
     ));
   },
   render() {
@@ -109,6 +128,7 @@ const headerMainMethod = {
         this.onDropBoxRenderEvent(this.searchViewMenuDropBox);
         this.onDropBoxRenderEvent(this.searchViewContentDropBox);
         this.onSearchBarInputEvent();
+        this.onSubmitSearchBar();
       });
   },
   createSearchBarAutoComplete(keyWord) {
@@ -126,6 +146,13 @@ const headerMainMethod = {
     const searchArea = document.querySelector(".search-bar__search-area");
     searchArea.addEventListener("input", (e) => {
       this.createSearchBarAutoComplete(searchArea.value);
+    });
+  },
+  onSubmitSearchBar() {
+    const searchForm = document.querySelector(".search-bar__form");
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      console.log("digh");
     });
   },
 };
