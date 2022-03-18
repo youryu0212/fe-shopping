@@ -4,7 +4,7 @@ export const HomeBanner = function () {};
 
 HomeBanner.prototype = {
   constructor: HomeBanner,
-  createBannerImg: function (data) {
+  createBannerImg(data) {
     return `
       <img
         class="home-Banner__img"
@@ -13,7 +13,7 @@ HomeBanner.prototype = {
       />
     `;
   },
-  createTodayImg: function (data) {
+  createTodayImg(data) {
     return `
     <li>
     <div data-idx=${data.idx} ${data.selected ? ' class="selected"' : ""}></div>
@@ -25,7 +25,7 @@ HomeBanner.prototype = {
     </li>
     `;
   },
-  createTemplate: function (BannerImg, todayShortcut) {
+  createTemplate(BannerImg, todayShortcut) {
     return `
     <div class="home-banner">
         <div class="home-banner__wrapper">
@@ -37,7 +37,7 @@ HomeBanner.prototype = {
       </div>
     `;
   },
-  changeBannerImg: function (bannerContainer, idx, data) {
+  changeBannerImg(bannerContainer, idx, data) {
     const bannerImg = document.querySelector(".home-Banner__img");
     const curSelected = bannerContainer.querySelector(".selected");
     const afterSelected = bannerContainer.children[idx].querySelector("div");
@@ -49,20 +49,20 @@ HomeBanner.prototype = {
     curSelected.classList.remove("selected");
     afterSelected.classList.add("selected");
   },
-  carouselHandler: function (data) {
+  carouselHandler(data) {
     const bannerList = document.querySelector(".home-banner__today-img-container");
     const carouseLength = bannerList.children.length;
     const curIdx = Number(document.querySelector(".selected").dataset.idx);
     const nextIdx = curIdx < carouseLength - 1 ? curIdx + 1 : 0;
     this.changeBannerImg(bannerList, nextIdx, data);
   },
-  startCarousel: function (data) {
+  startCarousel(data) {
     this.timer = setInterval(() => this.carouselHandler(data), 2000);
   },
-  stopCarousel: function () {
+  stopCarousel() {
     clearInterval(this.timer);
   },
-  onClickEvents: function (data) {
+  onClickEvents(data) {
     const bannerContainer = document.querySelector(".home-banner__today-img-container");
     bannerContainer.addEventListener("mouseover", (evt) => {
       this.changeBannerImg(bannerContainer, evt.target.dataset.idx, data);
@@ -70,7 +70,7 @@ HomeBanner.prototype = {
     });
     bannerContainer.addEventListener("mouseout", () => this.startCarousel(data));
   },
-  render: function () {
+  render() {
     const homebanner = document.querySelector(".main-home");
     getJsonData("/main/HomeBanner").then((data) => {
       homebanner.insertAdjacentHTML("beforebegin", this.createTemplate(data["img"], data["todayShortcut"]));

@@ -17,7 +17,7 @@ export const HeaderMain = function () {
 
 const headerMainMethod = {
   constructor: HeaderMain,
-  createEventsCategory: function (data) {
+  createEventsCategory(data) {
     return `
       <div class="search-section__events-category flex-row-between">
         <img
@@ -34,7 +34,7 @@ const headerMainMethod = {
       </div>
     `;
   },
-  createTemplate: function (data) {
+  createTemplate(data) {
     return `
     <div class="header-main thousand-width-center">
     <div class="category">
@@ -100,7 +100,7 @@ const headerMainMethod = {
       ""
     ));
   },
-  render: function () {
+  render() {
     this.renderHeaderEventCategory()
       .then(() => {
         return this.renderSearchMenuDropBox();

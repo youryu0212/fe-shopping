@@ -2,7 +2,7 @@ export const TopBar = function () {};
 
 TopBar.prototype = {
   constructor: TopBar,
-  createTemplate: function () {
+  createTemplate() {
     return `
       <nav class="top-bar-wrapper">
         <div class="top-bar flex-row-between thousand-width-center">
@@ -30,7 +30,7 @@ TopBar.prototype = {
       </nav>
       `;
   },
-  render: function () {
+  render() {
     const topBar = document.querySelector(".header");
     topBar.insertAdjacentHTML("afterbegin", this.createTemplate());
   },
