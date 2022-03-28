@@ -2,13 +2,13 @@ import { getJsonData } from "../util.js";
 import { DropBox } from "../component/dropbox.js";
 import { getLocalStorageForArray, setLocalStorageForArray } from "../component/local-storage.js";
 export const HeaderMain = function () {
-  this.searchViewMenuDropBox = this.setDropBoxInfo("search-bar__menu", "search-bar__view-menu", "search-bar");
-  this.searchViewContentDropBox = this.setDropBoxInfo(
+  this.searchViewMenuDropBox = new DropBox("search-bar__menu", "search-bar__view-menu", "search-bar");
+  this.searchViewContentDropBox = new DropBox(
     "search-bar__search-area",
     "search-bar__view-content",
     "search-bar"
   );
-  this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
+  this.searchViewContentDropBox.info.dropBox = this.searchViewContentDropBox.createDropBoxTemplate(
     false,
     "search-bar__view-content",
     null,
@@ -117,14 +117,17 @@ const headerMainMethod = {
   },
   renderSearchMenuDropBox() {
     return getJsonData("/header/searchBarMenu").then((data) => {
-      this.searchViewMenuDropBox.dropBox = this.createDropBoxTemplate(data, "search-bar__view-menu");
+      this.searchViewMenuDropBox.info.dropBox = this.searchViewMenuDropBox.createDropBoxTemplate(
+        data,
+        "search-bar__view-menu"
+      );
     });
   },
   renderSearchAreaDropBox(data, keyWord) {
     if (keyWord.length === 0) {
       data = null;
     }
-    return (this.searchViewContentDropBox.dropBox = this.createDropBoxTemplate(
+    return (this.searchViewContentDropBox.info.dropBox = this.searchViewContentDropBox.createDropBoxTemplate(
       data,
       "search-bar__view-content",
       keyWord,
@@ -137,8 +140,8 @@ const headerMainMethod = {
         return this.renderSearchMenuDropBox();
       })
       .then(() => {
-        this.onDropBoxRenderEvent(this.searchViewMenuDropBox);
-        this.onDropBoxRenderEvent(this.searchViewContentDropBox);
+        this.searchViewMenuDropBox.onDropBoxRenderEvent();
+        this.searchViewContentDropBox.onDropBoxRenderEvent();
         this.searchBarEventRegister();
       });
   },
@@ -155,7 +158,7 @@ const headerMainMethod = {
         return this.renderSearchAreaDropBox(data, keyWord);
       })
       .then(() => {
-        this.reRenderDropBox(this.searchViewContentDropBox);
+        this.searchViewContentDropBox.reRenderDropBox();
       });
   },
   onSubmitSearchBarByButtonClick() {
@@ -178,4 +181,4 @@ const headerMainMethod = {
     });
   },
 };
-HeaderMain.prototype = Object.assign(Object.create(DropBox.prototype), headerMainMethod);
+HeaderMain.prototype = Object.assign({}, headerMainMethod);
