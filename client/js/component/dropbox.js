@@ -1,19 +1,8 @@
 import { runTransitionAnimation } from "../util.js";
 
-export const DropBox = function (
-  eventListenerClassName,
-  dropBoxClassName,
-  parentNodeClassName,
-  dropBoxCurrentState,
-  dropBox
-) {
-  this.info = {
-    eventListenerClassName,
-    dropBoxClassName,
-    parentNodeClassName,
-    dropBoxCurrentState,
-    dropBox,
-  };
+export const DropBox = function (info) {
+  // info : { eventListenerClassName, dropBoxClassName, parentNodeClassName, dropBoxCurrentState, dropBox };
+  this.info = info;
 };
 DropBox.prototype = {
   constructor: DropBox,
