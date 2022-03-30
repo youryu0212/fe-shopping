@@ -1,8 +1,8 @@
 import { EventCategory } from "./Model/eventCategory.js";
-import { HeaderMain } from "./views/header-main.js";
+import { HeaderMain } from "./views/headerMain.js";
 import { SearchMenuDropBox } from "./views/searchMenuDropBoxView.js";
 import { SearchContentDropBox } from "./views/searchContentDropBoxView.js";
-import { TopBar } from "./views/top-bar.js";
+import { TopBar } from "./views/topBar.js";
 import { getLocalStorageForArray, setLocalStorageForArray } from "../component/local-storage.js";
 import { SearchBar } from "./Model/searchBar.js";
 import { DropBox } from "../component/dropbox.js";
