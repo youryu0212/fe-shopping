@@ -1,42 +1,8 @@
-import { getJsonData } from "../util.js";
-import { DropBox } from "../component/dropbox.js";
-import { getLocalStorageForArray, setLocalStorageForArray } from "../component/local-storage.js";
-export const HeaderMain = function () {
-  this.searchViewMenuDropBox = new DropBox("search-bar__menu", "search-bar__view-menu", "search-bar");
-  this.searchViewContentDropBox = new DropBox(
-    "search-bar__search-area",
-    "search-bar__view-content",
-    "search-bar"
-  );
-  this.searchViewContentDropBox.info.dropBox = this.searchViewContentDropBox.createDropBoxTemplate(
-    false,
-    "search-bar__view-content",
-    null,
-    this.recentSearchArea()
-  );
-  this.recentSearchKeyWord = "recentSearchKeyWord";
-};
+export const HeaderMain = function () {};
 
 const headerMainMethod = {
   constructor: HeaderMain,
-  createEventsCategory(data) {
-    return `
-      <div class="search-section__events-category flex-row-between">
-        <img
-          class="events-category__logo-img"
-          src="${data.img.src}"
-          alt="${data.img.alt}"
-        />
-        <div class="events-category__text small-text">${data.content}</div>
-        <img
-          class="new-icon${data.img.new ? "" : " display-none"}"
-          src="https://static.coupangcdn.com/image/coupang/common/ico_new.png"
-          alt="신규아이콘"
-        />
-      </div>
-    `;
-  },
-  createTemplate(data) {
+  createTemplate(eventCategory) {
     return `
     <div class="header-main thousand-width-center">
     <div class="category">
@@ -77,108 +43,15 @@ const headerMainMethod = {
         </div>
       </div>
       <div class="search-section__events flex">
-        ${data.headerEventCategoryData
-          .map((todayEventList) => this.createEventsCategory(todayEventList))
-          .join("")}
+        ${eventCategory}
       </div>
     </section>
     </div>`;
   },
-  createRecentSearchByLocalStorage(curLocalStorage) {
-    return curLocalStorage
-      .reverse()
-      .reduce(
-        (divElement, content) => divElement + `<div class="recentSearch-area__text">${content}</div>`,
-        ""
-      );
-  },
-  recentSearchArea() {
-    const curLocalStorage = getLocalStorageForArray(this.recentSearchKeyWord);
-    return `
-    <div class="recentSearch-area">
-      <div class="recentSearch-area__header">
-      <div class="recentSearch-area__text">최근 검색어</div>
-      </div>
-      <div class="recentSearch-area__main">
-        ${curLocalStorage.length > 0 ? this.createRecentSearchByLocalStorage(curLocalStorage) : ""}
-      </div>
-      <div class="recentSearch-area__footer">
-        <div class="recentSearch-area__text">전체삭제</div>
-        <div class="recentSearch-area__text">최근검색어끄기</div>
-      </div>
-    </div>
-    `;
-  },
-  renderHeaderEventCategory() {
+
+  render(data) {
     const headerMain = document.querySelector(".header");
-    return getJsonData("/header/eventCategory").then((data) => {
-      headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
-    });
-  },
-  renderSearchMenuDropBox() {
-    return getJsonData("/header/searchBarMenu").then((data) => {
-      this.searchViewMenuDropBox.info.dropBox = this.searchViewMenuDropBox.createDropBoxTemplate(
-        data,
-        "search-bar__view-menu"
-      );
-    });
-  },
-  renderSearchAreaDropBox(data, keyWord) {
-    if (keyWord.length === 0) {
-      data = null;
-    }
-    return (this.searchViewContentDropBox.info.dropBox = this.searchViewContentDropBox.createDropBoxTemplate(
-      data,
-      "search-bar__view-content",
-      keyWord,
-      this.recentSearchArea()
-    ));
-  },
-  render() {
-    this.renderHeaderEventCategory()
-      .then(() => {
-        return this.renderSearchMenuDropBox();
-      })
-      .then(() => {
-        this.searchViewMenuDropBox.onDropBoxRenderEvent();
-        this.searchViewContentDropBox.onDropBoxRenderEvent();
-        this.searchBarEventRegister();
-      });
-  },
-  searchBarEventRegister() {
-    this.onSearchBarInputEvent();
-    this.onSubmitSearchBar();
-    this.onSubmitSearchBarByButtonClick();
-  },
-  createSearchBarAutoComplete(keyWord) {
-    fetch(`https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${keyWord}`)
-      .then((res) => res.json())
-      .then((data) => data.suggestions.map((v) => v.value))
-      .then((data) => {
-        return this.renderSearchAreaDropBox(data, keyWord);
-      })
-      .then(() => {
-        this.searchViewContentDropBox.reRenderDropBox();
-      });
-  },
-  onSubmitSearchBarByButtonClick() {
-    const searchButton = document.querySelector(".search-bar__search-button");
-    searchButton.addEventListener("click", (evt) => {
-      setLocalStorageForArray(this.recentSearchKeyWord, this.searchArea.value);
-    });
-  },
-  onSearchBarInputEvent() {
-    this.searchArea = document.querySelector(".search-bar__search-area");
-    this.searchArea.addEventListener("input", (e) => {
-      this.createSearchBarAutoComplete(this.searchArea.value);
-    });
-  },
-  onSubmitSearchBar() {
-    const searchForm = document.querySelector(".search-bar__form");
-    searchForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      setLocalStorageForArray(this.recentSearchKeyWord, this.searchArea.value);
-    });
+    headerMain.insertAdjacentHTML("beforeend", this.createTemplate(data));
   },
 };
 HeaderMain.prototype = Object.assign({}, headerMainMethod);
